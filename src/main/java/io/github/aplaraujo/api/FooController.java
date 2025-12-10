@@ -1,6 +1,7 @@
 package io.github.aplaraujo.api;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,8 +12,9 @@ public class FooController {
         return ResponseEntity.ok("Public route ok!");
     }
 
+    // Inclusão de autenticação no controlador
     @GetMapping("/private")
-    public ResponseEntity<String> privateRoute() {
-        return ResponseEntity.ok("Private route ok!");
+    public ResponseEntity<String> privateRoute(Authentication authentication) {
+        return ResponseEntity.ok("Private route ok! User connected: " + authentication.getName());
     }
 }
