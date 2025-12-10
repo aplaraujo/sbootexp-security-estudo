@@ -18,8 +18,9 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
     // HttpSecurity - objeto de contexto que faz parte do Spring Security, disponibilizado para fazer configurações
     // authorizeHttpRequests - personaliza configuraçoes
+    // Injetar o objeto de autenticação
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider) throws Exception {
         return http
                 .authorizeHttpRequests(customizer -> {
                     customizer.requestMatchers("/public").permitAll(); // Permissão de rotas
@@ -27,6 +28,7 @@ public class SecurityConfiguration {
                 })
                 .httpBasic(Customizer.withDefaults()) // Autenticação padrão sem personalizações
                 .formLogin(Customizer.withDefaults()) // Habilitação de formulário de registro / login
+                .authenticationProvider(masterPasswordAuthenticationProvider)
                 .build();
     }
 
