@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity //Ambas anotações permitem configurações no Spring Security
@@ -19,8 +20,9 @@ public class SecurityConfiguration {
     // HttpSecurity - objeto de contexto que faz parte do Spring Security, disponibilizado para fazer configurações
     // authorizeHttpRequests - personaliza configuraçoes
     // Injetar o objeto de autenticação
+    // Injetar o filtro
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider, CustomFilter customFilter) throws Exception {
         return http
                 .authorizeHttpRequests(customizer -> {
                     customizer.requestMatchers("/public").permitAll(); // Permissão de rotas
@@ -29,6 +31,7 @@ public class SecurityConfiguration {
                 .httpBasic(Customizer.withDefaults()) // Autenticação padrão sem personalizações
                 .formLogin(Customizer.withDefaults()) // Habilitação de formulário de registro / login
                 .authenticationProvider(masterPasswordAuthenticationProvider)
+                .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
