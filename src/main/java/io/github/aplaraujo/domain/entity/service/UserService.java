@@ -28,9 +28,18 @@ public class UserService {
 
     public UserResponseDTO create(UserRequestDTO request) {
         List<Role> roles = roleRepository.findByNameIn(request.roles());
+
+        System.out.println("ROLES ENCONTRADAS NO BANCO:");
+        roles.forEach(role -> System.out.println("  - " + role.getName()));
+
         User user = mapper.toEntity(request, roles);
         user.setPassword(encoder.encode(request.password()));
         user = repository.save(user);
+
+        System.out.println("ROLES DO USUÁRIO SALVO:");
+        user.getRoles().forEach(role -> System.out.println("  - " + role.getName()));
+
+
         return mapper.toResponse(user);
     }
 
@@ -41,8 +50,9 @@ public class UserService {
         }
         // Se o usuário existir, obter as permissões
         User user = userOptional.get();
-        Set<Role> roles = userRoleRepository.findRolesByUser(user);
-        user.setRoles(roles);
+
+        System.out.println("ROLES CARREGADAS AUTOMATICAMENTE:");
+        user.getRoles().forEach(role -> System.out.println("  - " + role.getName()));
         return user;
     }
 }

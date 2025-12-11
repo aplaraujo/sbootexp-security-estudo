@@ -51,16 +51,16 @@ public class SecurityConfiguration {
     }
 
     // Criação de uma base de usuários
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails commonUser = User.builder().username("user").password(passwordEncoder().encode("123")).roles("USER").build();
-        UserDetails adminUser = User.builder().username("admin").password(passwordEncoder().encode("admin123")).roles("ADMIN", "USER").build();
-        return new InMemoryUserDetailsManager(commonUser, adminUser);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails commonUser = User.builder().username("user").password(passwordEncoder().encode("123")).roles("USER").build();
+//        UserDetails adminUser = User.builder().username("admin").password(passwordEncoder().encode("admin123")).roles("ADMIN", "USER").build();
+//        return new InMemoryUserDetailsManager(commonUser, adminUser);
+//    }
 
-    // Definição de perfis (prefixo)
-    @Bean
-    public GrantedAuthorityDefaults grantedAuthorityDefaults() {
-        return new GrantedAuthorityDefaults("");
-    }
+//    // Definição de perfis (prefixo)
+//    @Bean
+//    public GrantedAuthorityDefaults grantedAuthorityDefaults() {
+//        return new GrantedAuthorityDefaults("");
+//    }
 }

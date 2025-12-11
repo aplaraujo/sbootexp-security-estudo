@@ -21,7 +21,7 @@ public class FooController {
 
     // Rota de administrador
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')") // Define uma autorização para um determinado perfil
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // Define uma autorização para um determinado perfil
     public ResponseEntity<String> adminRoute() {
         return ResponseEntity.ok("Admin route ok!");
     }

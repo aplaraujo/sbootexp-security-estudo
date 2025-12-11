@@ -1,5 +1,8 @@
 package io.github.aplaraujo.config;
 
+import io.github.aplaraujo.domain.entity.Role;
+import io.github.aplaraujo.domain.entity.security.CustomAuthentication;
+import io.github.aplaraujo.domain.entity.security.UserIdentity;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +17,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 // Filtro para ser executado uma vez durante a autenticação
 @Component

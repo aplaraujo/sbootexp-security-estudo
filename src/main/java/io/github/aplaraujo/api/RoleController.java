@@ -22,7 +22,7 @@ public class RoleController implements GenericController{
 
     @PostMapping
     @Transactional
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> salvar(@RequestBody RoleDTO dto) {
         Role role = mapper.toEntity(dto);
         service.save(role);
@@ -32,7 +32,7 @@ public class RoleController implements GenericController{
 
     @GetMapping
     @Transactional
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<RoleDTO> roles() {
         return service.roles();
     }
