@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 // Usuários cadastrados na base de dados
@@ -22,4 +24,12 @@ public class User {
     private String login;
     private String password;
     private String name;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 }
