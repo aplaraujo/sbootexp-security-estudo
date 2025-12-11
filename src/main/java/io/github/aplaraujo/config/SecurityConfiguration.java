@@ -1,5 +1,6 @@
 package io.github.aplaraujo.config;
 
+import io.github.aplaraujo.domain.entity.security.CustomAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -25,10 +26,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
     // HttpSecurity - objeto de contexto que faz parte do Spring Security, disponibilizado para fazer configurações
     // authorizeHttpRequests - personaliza configuraçoes
-    // Injetar o objeto de autenticação
-    // Injetar o filtro
+
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider, CustomFilter customFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, MasterPasswordAuthenticationProvider masterPasswordAuthenticationProvider, CustomAuthenticationProvider customAuthenticationProvider, CustomFilter customFilter) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable) // Desabilitar o filtro de CSRF
                 .authorizeHttpRequests(customizer -> {
@@ -37,8 +38,9 @@ public class SecurityConfiguration {
                 })
                 .httpBasic(Customizer.withDefaults()) // Autenticação padrão sem personalizações
                 .formLogin(Customizer.withDefaults()) // Habilitação de formulário de registro / login
-                .authenticationProvider(masterPasswordAuthenticationProvider)
-                .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)
+                .authenticationProvider(masterPasswordAuthenticationProvider) // Injetar o objeto de autenticação
+                .authenticationProvider(customAuthenticationProvider) // Injetar a autenticação personalizada
+                .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class) // Injetar o filtro
                 .build();
     }
 

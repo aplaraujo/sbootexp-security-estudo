@@ -21,7 +21,7 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.userIdentity.getRoles().stream().map(role -> new SimpleGrantedAuthority(role)).toList();
+        return this.userIdentity.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.toString())).toList();
     }
 
     @Override
