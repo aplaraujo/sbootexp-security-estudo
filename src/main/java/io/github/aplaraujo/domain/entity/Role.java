@@ -1,16 +1,16 @@
 package io.github.aplaraujo.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 // Cadastro de grupos de usuários
 @Entity
+@Table(name = "tb_role")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,6 +18,6 @@ import lombok.Setter;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
     private String name; // nome do grupo
 }

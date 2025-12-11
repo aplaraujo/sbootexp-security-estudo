@@ -1,16 +1,16 @@
 package io.github.aplaraujo.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 // Usuários cadastrados na base de dados
 @Entity
+@Table(name = "tb_user")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,7 +18,7 @@ import lombok.Setter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
     private String login;
     private String password;
     private String name;

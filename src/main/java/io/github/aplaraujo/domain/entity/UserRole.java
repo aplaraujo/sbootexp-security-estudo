@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 // Associação entre o usuário e o grupo
 @Entity
 @Getter
@@ -15,7 +17,7 @@ import lombok.Setter;
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     // Um usuário pode pertencer a vários grupos
     @ManyToOne
