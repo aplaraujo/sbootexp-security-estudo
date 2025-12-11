@@ -1,28 +1,22 @@
 package io.github.aplaraujo.domain.entity.security;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import io.github.aplaraujo.domain.entity.Role;
+import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 // Definir uma classe que representa a identificação de usuários
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
 public class UserIdentity {
     private UUID id;
     private String name;
     private String login;
-    private List<String> roles;
+    private Set<Role> roles;
 
-    public List<String> getRoles() {
+    public Set<Role> getRoles() {
         if (roles == null) {
-            roles = new ArrayList<>();
+            roles = new HashSet<>();
         }
         return roles;
     }
